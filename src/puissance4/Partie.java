@@ -34,13 +34,11 @@ public class Partie {
       System.out.println(joueur2.Nom + " a la couleur "+joueur2.Couleur); //on annonce la couleur du joueur 2 
       
       //on attribue la couleur des jetons en fonction de celle du joueur 
-      String couleurJeton1 = joueur1.Couleur; 
-      Jeton jetonJ1 = new Jeton(couleurJeton1);
-      joueur1.ajouterJeton(jetonJ1);
-      //de meme pour le joueur 2
-      String couleurJeton2 = joueur2.Couleur;
-      Jeton jetonJ2 = new Jeton(couleurJeton2);
-      joueur1.ajouterJeton(jetonJ2);
+      for (int i = 0; i < 21; i++) {
+            Jeton J = new Jeton(ListeJoueurs[0].Couleur);
+            joueur1.ajouterJeton(J);
+            joueur2.ajouterJeton(new Jeton(joueur2.Couleur));
+        }
       
       //tirage au sort du joueur qui commencera la partie 
       Random r = new Random();
@@ -54,29 +52,29 @@ public class Partie {
       }
       
       //positionnement aléatoire des 5 trous noirs aléatoires
-      Random rt = new Random();
-      int nb1 = rt.nextInt(6);
-      int nb2 = rt.nextInt(7);
-      int i=0;
-      int k=0;
-      while(i<=5){
-          grilleJeu.placerTrouNoir(nb1, nb2);
-          i++;
-          while(k<=2){ //positionnement aleatoire des 2 désintégrateurs derrières trous noirs
-              grilleJeu.placerDesintegrateur(nb1, nb2);
-              k++;
-          }
-      }
+      int compteur = 0;
+        for (int i = 0; i < 5; i++) {
+            int ligne_trou_noir = r.nextInt(6);
+            int colonne_trou_noir = r.nextInt(7);
+            if (compteur < 2) {
+                if (!grilleJeu.placerDesintegrateur(ligne_trou_noir, colonne_trou_noir)) {
+                    compteur--;
+                }
+                compteur = compteur + 1;
+            }
+            if (!grilleJeu.placerTrouNoir(ligne_trou_noir, colonne_trou_noir)) {
+                i--;
+            }
+        }
       
       //positionnement aleatoire des 3 désintégrateurs seuls
-      Random rd = new Random();
-      int nb3 = rd.nextInt(6);
-      int nb4 = rd.nextInt(7);
-      int j=0;
-      while(j<=3){
-          grilleJeu.placerDesintegrateur(nb3, nb4);
-          j++;
-      }
+      for (int i = 0; i < 3; i++) {
+            int ligne_désin = r.nextInt(6);
+            int colonne_désin = r.nextInt(7);
+            if (!grilleJeu.placerDesintegrateur(ligne_désin, colonne_désin) || grilleJeu.cellules[ligne_désin][colonne_désin].presenceTrouNoir()) {
+                i--;
+            }
+        }
       grilleJeu.afficherGrilleSurConsole(); //affichage de la grille
     }
     
@@ -97,7 +95,7 @@ public class Partie {
             
             if(choixJoueur == 1){ //si le joueur veut ajouter un jeton 
                 System.out.println("Dans quelle colonne voulez vous ajouter votre jeton?"); //on lui demande la position qu'il souhaite pour son jeton 
-                indColonne = sc.nextInt();
+                indColonne = sc.nextInt()-1;
                 grilleJeu.ajouterJetonDansColonne(joueurCourant, indColonne); //on ajoute le jeton dans la colonne souhaité 
                 grilleJeu.etreGagnantePourJoueur(joueurCourant); //on teste si 4 jetons sont alignés 
             }
@@ -126,7 +124,7 @@ public class Partie {
             if(choixJoueur == 2 && joueurCourant.nombreDesintegrateurs == 0){ //si le joueur veut utiliser un desintegrateur mais qu'il n'en possede pas 
                 System.out.println("Attention, vous n'avez pas de désintégrateur !"); //affichage d'un message d'erreur 
             }
-            tourJoueur();
+            joueurCourant = tourJoueur(joueurCourant);
         }
         if (grilleJeu.etreGagnantePourJoueur(joueurCourant)){ //si un des deux joueurs a gagné :
             if (joueurCourant == ListeJoueurs[0]){ //si c'est le joueur 1, affichage d'un message de félicitations 
@@ -153,13 +151,20 @@ public class Partie {
         }
     }
     
-    public void tourJoueur(){ //creation de la methode qui permet de savoir le tour des joueurs 
+    public Joueur tourJoueur(Joueur un_Joueur){ //creation de la methode qui permet de savoir le tour des joueurs 
         if(ListeJoueurs[0]==joueurCourant){
-            joueurCourant = ListeJoueurs[1];
-            System.out.println(ListeJoueurs[1].Nom+", à vous de jouer! "+"Il vous reste: "+ ListeJoueurs[1].nombreJetonsRestants+" jetons, et "+ListeJoueurs[1].nombreDesintegrateurs+" désintégrateurs");
+            return ListeJoueurs [1];
+            //System.out.println(ListeJoueurs[1].Nom+", à vous de jouer! "+"Il vous reste: "+ ListeJoueurs[1].nombreJetonsRestants+" jetons, et "+ListeJoueurs[1].nombreDesintegrateurs+" désintégrateurs");
         } else {
-            joueurCourant = ListeJoueurs[0];
-            System.out.println(ListeJoueurs[0].Nom+", à vous de jouer! "+"Il vous reste: "+ ListeJoueurs[0].nombreJetonsRestants+" jetons, et "+ListeJoueurs[0].nombreDesintegrateurs+" désintégrateurs");
+            return ListeJoueurs[0];
+            //System.out.println(ListeJoueurs[0].Nom+", à vous de jouer! "+"Il vous reste: "+ ListeJoueurs[0].nombreJetonsRestants+" jetons, et "+ListeJoueurs[0].nombreDesintegrateurs+" désintégrateurs");
         }
+    }
+    
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        
+        //</editor-fold>
+                new fenetreJeu().setVisible(true);
     }
 }

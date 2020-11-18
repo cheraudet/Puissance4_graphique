@@ -5,7 +5,7 @@
  */
 
 package puissance4;
-
+import java.util.Random;
 /**
  *
  * @author cheraude
@@ -19,12 +19,12 @@ public class fenetreJeu extends javax.swing.JFrame {
     /** Creates new form fenetreJeu */
     public fenetreJeu() {
         initComponents();
-        panneau_info_joueurs.setVisible(false);
+        panneau_infos_joueurs.setVisible(false);
         panneau_info_partie.setVisible(false);
         
         for(int i=5; i>=0; i--){
             for(int j=0; j<7; j++){
-                CelluleGraphique cellGraph = new CelluleGraphique(grilleJeu.Cellules[i][j]);
+                CelluleGraphique cellGraph = new CelluleGraphique(grilleJeu.cellules[i][j]);
                 panneau_grille.add(cellGraph);
             }
         }
@@ -165,7 +165,7 @@ public class fenetreJeu extends javax.swing.JFrame {
         jLabel4.setText("Joueur courant :");
         panneau_info_partie.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
 
-        lbl_jcourant.setText("nomjoueur");
+        lbl_jcourant.setText("lbl_jcourant");
         panneau_info_partie.add(lbl_jcourant, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
         message.setColumns(20);
@@ -177,49 +177,142 @@ public class fenetreJeu extends javax.swing.JFrame {
         getContentPane().add(panneau_info_partie, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 480, 290, 160));
 
         btn_col_6.setText("7");
+        btn_col_6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_col_6ActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_col_6, new org.netbeans.lib.awtextra.AbsoluteConstraints(626, 40, -1, -1));
 
         btn_col_0.setText("1");
+        btn_col_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_col_0ActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_col_0, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
 
         btn_col_1.setText("2");
+        btn_col_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_col_1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_col_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 40, -1, -1));
 
         btn_col_2.setText("3");
+        btn_col_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_col_2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_col_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(242, 40, -1, -1));
 
         btn_col_3.setText("4");
+        btn_col_3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_col_3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_col_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 40, -1, -1));
 
         btn_col_4.setText("5");
+        btn_col_4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_col_4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_col_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 40, -1, -1));
 
         btn_col_5.setText("6");
+        btn_col_5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_col_5ActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_col_5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 40, -1, -1));
 
         setBounds(0, 0, 1044, 702);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_startActionPerformed
-        panneau_info_joueurs.setVisible(true);
+        panneau_infos_joueurs.setVisible(true);
         panneau_info_partie.setVisible(true);
         initialiserPartie();
+        panneau_grille.repaint();
+        btn_start.setEnabled(false);
     }//GEN-LAST:event_btn_startActionPerformed
 
     private void nom_joueur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nom_joueur2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nom_joueur2ActionPerformed
 
+    private void btn_col_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_0ActionPerformed
+        // TODO add your handling code here:
+        joueurSuivant();
+        jouerDansColonne(0);
+    }//GEN-LAST:event_btn_col_0ActionPerformed
+
+    private void btn_col_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_1ActionPerformed
+        // TODO add your handling code here:
+        joueurSuivant();
+        jouerDansColonne(1);
+    }//GEN-LAST:event_btn_col_1ActionPerformed
+
+    private void btn_col_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_2ActionPerformed
+        // TODO add your handling code here:
+        joueurSuivant();
+        jouerDansColonne(2);
+    }//GEN-LAST:event_btn_col_2ActionPerformed
+
+    private void btn_col_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_3ActionPerformed
+        // TODO add your handling code here:
+        joueurSuivant();
+        jouerDansColonne(3);
+    }//GEN-LAST:event_btn_col_3ActionPerformed
+
+    private void btn_col_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_4ActionPerformed
+        // TODO add your handling code here:
+        joueurSuivant();
+        jouerDansColonne(4);
+    }//GEN-LAST:event_btn_col_4ActionPerformed
+
+    private void btn_col_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_5ActionPerformed
+        // TODO add your handling code here:
+        joueurSuivant();
+        jouerDansColonne(5);
+    }//GEN-LAST:event_btn_col_5ActionPerformed
+
+    private void btn_col_6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_6ActionPerformed
+        // TODO add your handling code here:
+        joueurSuivant();
+        jouerDansColonne(6);
+    }//GEN-LAST:event_btn_col_6ActionPerformed
+    
+    public boolean jouerDansColonne(int indice_colonne){
+        boolean resultatAction;
+        resultatAction = grilleJeu.ajouterJetonDansColonne(joueurCourant, indice_colonne);
+        if(resultatAction == true) return false;
+        else return true;
+    }
+    
+    public void joueurSuivant(){
+        if (joueurCourant == ListeJoueurs[0]){
+            joueurCourant = ListeJoueurs[1];
+        }
+        else joueurCourant = ListeJoueurs[0];
+        lbl_jcourant.setText(joueurCourant.Nom) ;   
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        /*try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -238,21 +331,21 @@ public class fenetreJeu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new fenetreJeu().setVisible(true);
-            }
-        });
-    }
+       // java.awt.EventQueue.invokeLater(new Runnable() {
+       //     public void run() {
+       //         new fenetreJeu().setVisible(true);
+      //      }
+      //  });
+    //}
 
     public void initialiserPartie(){ //creation de la methode qui initialise chaque partie 
       grilleJeu.viderGrille(); //on commence par vider la grille 
       
-      //création des joueurs
       String nomJoueur1 = nom_joueur1.getText();
       Joueur joueur1 = new Joueur(nomJoueur1);
       String nomJoueur2 = nom_joueur2.getText();
       Joueur joueur2 = new Joueur(nomJoueur2);
+      
       ListeJoueurs[0] = joueur1; 
       ListeJoueurs[1] = joueur2;
       
@@ -260,50 +353,55 @@ public class fenetreJeu extends javax.swing.JFrame {
       System.out.println(joueur1.Nom + " a la couleur "+joueur1.Couleur); //on annonce la couleur du joueur 1
       System.out.println(joueur2.Nom + " a la couleur "+joueur2.Couleur); //on annonce la couleur du joueur 2 
       
+      lbl_j1_name1.setText(nomJoueur1);
+      lbl_j2_name.setText(nomJoueur2);
+      lbl_j1_couleur.setText(joueur1.Couleur);
+      lbl_j2_couleur.setText(joueur2.Couleur);
+      lbl_j1_desint.setText(joueur1.nombreDesintegrateurs+"");
+      lbl_j2_desint.setText(joueur2.nombreDesintegrateurs+"");
+      
+      
       //on attribue la couleur des jetons en fonction de celle du joueur 
-      String couleurJeton1 = joueur1.Couleur; 
-      Jeton jetonJ1 = new Jeton(couleurJeton1);
-      joueur1.ajouterJeton(jetonJ1);
-      //de meme pour le joueur 2
-      String couleurJeton2 = joueur2.Couleur;
-      Jeton jetonJ2 = new Jeton(couleurJeton2);
-      joueur1.ajouterJeton(jetonJ2);
+      for (int i = 0; i < 21; i++) {
+            Jeton J = new Jeton(ListeJoueurs[0].Couleur);
+            joueur1.ajouterJeton(J);
+            joueur2.ajouterJeton(new Jeton(joueur2.Couleur));
+        }
       
       //tirage au sort du joueur qui commencera la partie 
       Random r = new Random();
       boolean premierJoueur = r.nextBoolean();
       if (premierJoueur==true){
           joueurCourant = ListeJoueurs[0];
-          System.out.println(joueur1.Nom+" vous commencez la partie !");
       }else{
           joueurCourant = ListeJoueurs[1];
-          System.out.println(joueur2.Nom+" vous commencez la partie !");
       }
+      lbl_jcourant.setText(joueurCourant.Nom);
       
       //positionnement aléatoire des 5 trous noirs aléatoires
-      Random rt = new Random();
-      int nb1 = rt.nextInt(6);
-      int nb2 = rt.nextInt(7);
-      int i=0;
-      int k=0;
-      while(i<=5){
-          grilleJeu.placerTrouNoir(nb1, nb2);
-          i++;
-          while(k<=2){ //positionnement aleatoire des 2 désintégrateurs derrières trous noirs
-              grilleJeu.placerDesintegrateur(nb1, nb2);
-              k++;
-          }
-      }
+      int compteur = 0;
+        for (int i = 0; i < 5; i++) {
+            int ligne_trou_noir = r.nextInt(6);
+            int colonne_trou_noir = r.nextInt(7);
+            if (compteur < 2) {
+                if (!grilleJeu.placerDesintegrateur(ligne_trou_noir, colonne_trou_noir)) {
+                    compteur--;
+                }
+                compteur = compteur + 1;
+            }
+            if (!grilleJeu.placerTrouNoir(ligne_trou_noir, colonne_trou_noir)) {
+                i--;
+            }
+        }
       
       //positionnement aleatoire des 3 désintégrateurs seuls
-      Random rd = new Random();
-      int nb3 = rd.nextInt(6);
-      int nb4 = rd.nextInt(7);
-      int j=0;
-      while(j<=3){
-          grilleJeu.placerDesintegrateur(nb3, nb4);
-          j++;
-      }
+      for (int i = 0; i < 3; i++) {
+            int ligne_désin = r.nextInt(6);
+            int colonne_désin = r.nextInt(7);
+            if (!grilleJeu.placerDesintegrateur(ligne_désin, colonne_désin) || grilleJeu.cellules[ligne_désin][colonne_désin].presenceTrouNoir()) {
+                i--;
+            }
+        }
       
     }
     

@@ -22,99 +22,73 @@ public class Cellule {
     }
     
     public boolean affecterJeton(Jeton unJeton){ //creation de la methode qui ajoute le jeton en paramètre à la cellule
-        boolean a;
-        if (jetonCourant != null){ //test si il y a deja un jeton dans la cellule 
-            a=false; //retourne faux 
-        }
-        else{ //sinon ajoute le jeton et retourne vrai si il a bien été ajouté
+        if(jetonCourant == null){
             jetonCourant = unJeton;
-            a = true;
+            return true;
         }
-        return a;
+        return false;
     }
     
     public Jeton recupererJeton(){ //creation de la methode qui renvoie une refernce vers le jeton de la cellule
-        return jetonCourant;
+        Jeton jetonRetour = jetonCourant;
+        jetonCourant  = null;
+        return jetonRetour;
     }
     
     public boolean supprimerJeton(){ //creation de la methode qui supprime un jeton
-        boolean b;
-        if(jetonCourant != null){ //test si un jeton est bien present 
-            jetonCourant = null; //si c'est le cas le jeton devient nul
-            b =true; //retiurne vrai si la suppression a eu lieu
-        }else { //sinon retourne faux 
-            b=false;
+        if(jetonCourant == null){
+            return false;
         }
-        return b;
+        jetonCourant = null;
+        return true;
     }
     
     public boolean placerTrouNoir(){ //creation de la methode qui permet d'ajouter un trou noir 
-        boolean c;
-        if(trouNoir == false){ //test si il y a un trou noir 
-            trouNoir = true; //s'il n'y en a pas, on en ajoute un 
-            c=true; //retourne vrai si l'ajout a bien eu lieu
-        }else{ //sinon retourne faux 
-            c = false;
+        if(trouNoir){
+            return false;
         }
-        return c;
+        trouNoir = true;
+        return true;
     }
     
     public boolean placerDesintegrateur(){ //creation de la methode qui permet d'ajouter un désintegrateur 
-       boolean d;
-       if (desintegrateur == false){ //test si il y a un désintegrateur
-           desintegrateur =true; //s'il n'y en a pas, on en ajoute un
-           d = true; //retourne vrai si l'ajout a bien eu lieu
-       }else{ //sinon retourne faux 
-           d =false;
-       }
-       return d;
+       if(desintegrateur){
+            return false;
+        }
+        desintegrateur = true;
+        return true;
     }
     
     public boolean presenceTrouNoir() { //creation de la methode qui teste si il y a un trou noir 
-        boolean trou;
-        if (trouNoir==true){ //test si il y a un trou noir dans la cellule 
-            trou = true; //si c'est le cas on returne vrai 
-        }else{ //sinon on retourne faux 
-            trou =false;
-        }
-        return trou;
+        return trouNoir;
     }
     
     public boolean presenceDesintegrateur(){ //creation de la methode qui teste si un désintegrateur est present
-        boolean desint=true;
-        if (desintegrateur == true){ //test si il y a un désintegrateur dans la cellule 
-            desint = true; //si c'est le cas, retourne vrai 
-        }
-        return desint;
+        return desintegrateur;
     }
     
     public String  lireCouleurDuJeton(){ //creation de la methode qui permet de lire la couleur d'un jeton 
         if(jetonCourant == null){ //test si un jeton est present dans la cellule 
-            return "pas de jetons"; //si ce n'est pas le cas, retourne qu'il n'y a pas de jetons
+            return "vide"; //si ce n'est pas le cas, retourne qu'il n'y a pas de jetons
         }
         return jetonCourant.Couleur; //sinon on retourne la couleur du jeton
     }
     
     public boolean recupererDesintegrateur(){ //creation de la methode qui permet de recuperer un desintegrateur 
-        boolean recupDesint;
-        if(desintegrateur==true){ //test la présence d'un désintegrateur 
-            desintegrateur = false; //si il y en a un, on le supprime 
-            recupDesint = true; //et on retourne vrai
-        } else { //sinon on retourne faux 
-            recupDesint = false;
+        if(presenceDesintegrateur()){
+            desintegrateur = false;
+            return true;
         }
-        return recupDesint;
+        return false;
     }
     
     public boolean activerTrouNoir(){ //creation de la methode qui permet d'activer un trou noir 
-        boolean activTrou;
-        if (trouNoir){ //test la presence du trou noir 
-            jetonCourant = null; //si il est present, lejeton est engloutit et disparait  
-            trouNoir = false; //on supprime le trou noir 
-            activTrou = true; //et on retourne vrai 
-        } else { //sinon on retourne faux 
-            activTrou = false;
+        if(trouNoir){
+            jetonCourant = null;
+            trouNoir = false;
+            System.out.println("Votre pion c'est fait engloutir dans le trou noir !");
+            return true;
         }
-        return activTrou;
+        return false;
     }
 }

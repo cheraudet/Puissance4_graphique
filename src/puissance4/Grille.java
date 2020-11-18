@@ -13,19 +13,32 @@ public class Grille {
     //creation des attributs de la classe grille 
     Cellule cellules [][] = new Cellule [6][7];
     
+    
+    public Grille(){
+        for (int i=0; i<6 ; i++ ){
+            for (int j=0; j<7; j++){
+                cellules[i][j]=new Cellule();
+            }
+        }
+        
+    }
+    public static void main (String [] a) {
+                  new fenetreJeu().setVisible(true);
+    
+    }
     public boolean ajouterJetonDansColonne(Joueur joueurCourant, int indColonne){ //creation de la methode qui ajoute un jeton dans la colonne voulue 
       if (colonneRemplie(indColonne)){ //si la colonne est pleine, on ne peut pas ajouter de jeton
         return false; //donc on retourne faux 
       }
       else{ //si ce n'est pas le cas :
         //Jeton unJeton = joueurCourant.ListeJetons; //je voulais definir le jeton unJeton comme etant un jeton de la liste des jetons du joueur mais je n'ai pas réussi
-        Jeton unJeton = new Jeton(joueurCourant.Couleur); //on definit et initialise la variable jeton
+        Jeton unJeton = joueurCourant.retirerJeton(); //on definit et initialise la variable jeton
         int i=5;
         while(cellules[i][indColonne].jetonCourant != null){ //on teste tant que la cellule n'est pas vide 
             i--; //on passe à la cellule du dessus 
         }
         if(cellules[i][indColonne].jetonCourant == null){ //test si la cellule est vide  
-            joueurCourant.enleverJeton(unJeton); //si c'est le cas, on enleve un jeton au joueur
+            joueurCourant.retirerJeton(); //si c'est le cas, on enleve un jeton au joueur
             cellules[i][indColonne].jetonCourant = unJeton; //on ajoute le jeton enlevé dans la cellule 
             joueurCourant.nombreJetonsRestants --; //et on decremente le nb de jetons du joueur
         }
@@ -150,13 +163,12 @@ public class Grille {
         return rempli;
     }
     
-    public boolean placerDesintegrateur(int indLigne, int indColonne){ //creation de la methode qui permet d'ajouter un desintegrateur 
-        boolean desint;
-        if(cellules[indLigne][indColonne].presenceDesintegrateur()==false){ //test la presence d'un desintegrateur 
-            cellules[indLigne][indColonne].desintegrateur = true; //si il n'y en a pas, on en ajoute un
-            desint = true; //renvoie vrai si desintegrateur bien ajouté
-        } else{ desint = false; } //sinon renvoie faux 
-        return desint;
+    public boolean placerDesintegrateur(int indLigne, int indColonne) {
+        if (cellules[indLigne][indColonne].desintegrateur == false) {
+            cellules[indLigne][indColonne].desintegrateur = true;
+            return true;
+        }
+        return false;
     }
     
     public boolean placerTrouNoir(int indLigne, int indColonne){ //creation de la methode qui permet d'ajouter un trou noir 

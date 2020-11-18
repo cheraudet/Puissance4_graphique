@@ -32,9 +32,9 @@ public class Joueur {
         return true; //retourne vrai quand le jeton est ajouté
     }
     
-    public boolean enleverJeton(Jeton unJeton){
-        ListeJetons [nombreJetonsRestants--] = unJeton; //creation de la methode qui enleve le jeton en parametre a la liste des jetons
-        return true; //retourne vrai quand le jeton est enlevé
+    Jeton retirerJeton(){
+        nombreJetonsRestants = nombreJetonsRestants-1;
+        return ListeJetons[nombreJetonsRestants];
     }
     
     public void obtenirDesintegrateur(){ //creation de la methode qui incrémente le nb de désintegrateurs du joueur
