@@ -33,7 +33,7 @@ public class Joueur {
     }
     
     Jeton retirerJeton(){
-        nombreJetonsRestants = nombreJetonsRestants-1;
+        nombreJetonsRestants --;
         return ListeJetons[nombreJetonsRestants];
     }
     
