@@ -117,7 +117,7 @@ public class Partie {
                 System.out.println("Dans quelle ligne voulez vous récupérer votre jeton?");
                 indLigne = sc.nextInt();
                 grilleJeu.recupererJeton(indLigne, indColonne); //recuperation du jeton souhaité 
-                grilleJeu.tasserGrille(indColonne); //tassement de la grille
+                grilleJeu.tasserGrille(); //tassement de la grille
                 joueurCourant.nombreJetonsRestants++; //incrémentation du nombre de jetons du joueur 
                 grilleJeu.etreGagnantePourJoueur(joueurCourant); //on teste si 4 jetons sont alignés
             }
